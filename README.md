@@ -1,6 +1,6 @@
 # Customer Reviews Slider
 
-[DEMO LIVE](View Live: Product Catalog)
+[DEMO LIVE](https://19eduard99.github.io/Customer-Slider/)
 
 ## Опис проєкту
 
