@@ -1,4 +1,8 @@
 import "./style.css";
+import { getSlidesToShow, GAP } from "./slider/config.js";
+import { updateSlider } from "./slider/slider.js";
+import { createDots, updateDots } from "./slider/dots.js";
+import { setupSwipe } from "./slider/swipe.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const slider = document.getElementById("slider");
@@ -16,76 +20,50 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const slides = Array.from(slider.children);
   const slideCount = slides.length;
-  const gap = 20;
 
   let slidesToShow = getSlidesToShow();
   let slideWidth = 0;
   let currentIndex = 0;
   let dots = [];
 
-  function getSlidesToShow() {
-    const width = window.innerWidth;
-    if (width < 768) return 1;
-    if (width < 1024) return 2;
-    return 3;
+  function handleDotsUpdate() {
+    const currentPage = Math.floor(
+      currentIndex / slidesToShow
+    );
+    updateDots(dots, currentPage);
   }
 
-  function updateSlider() {
-    const offset = currentIndex * (slideWidth + gap);
-    slider.style.transform = `translateX(-${offset}px)`;
-    updateDots();
+  function updateAll() {
+    updateSlider(slider, slideWidth, GAP, currentIndex);
+    handleDotsUpdate();
   }
 
   function updateSliderWidth() {
-    const prevSlidesToShow = slidesToShow;
-    slidesToShow = getSlidesToShow();
-
     const wrapperWidth = sliderWrapper.offsetWidth;
+    slidesToShow = getSlidesToShow();
     slideWidth =
-      (wrapperWidth - gap * (slidesToShow - 1)) /
+      (wrapperWidth - GAP * (slidesToShow - 1)) /
       slidesToShow;
 
     slides.forEach((slide) => {
       slide.style.width = `${slideWidth}px`;
     });
 
-    currentIndex =
-      Math.floor(currentIndex / prevSlidesToShow) *
-      slidesToShow;
     if (currentIndex > slideCount - slidesToShow) {
       currentIndex = Math.max(0, slideCount - slidesToShow);
     }
 
-    updateSlider();
-    createDots();
-  }
+    updateAll();
 
-  function createDots() {
-    dotsContainer.innerHTML = "";
     const pageCount = Math.ceil(slideCount / slidesToShow);
-    dots = [];
-
-    for (let i = 0; i < pageCount; i++) {
-      const dot = document.createElement("span");
-      dot.classList.add("slider-dot");
-      if (i === Math.floor(currentIndex / slidesToShow)) {
-        dot.classList.add("active");
-      }
-      dot.addEventListener("click", () => {
-        currentIndex = i * slidesToShow;
-        updateSlider();
-      });
-      dotsContainer.appendChild(dot);
-      dots.push(dot);
-    }
-  }
-
-  function updateDots() {
-    dots.forEach((dot, idx) => {
-      dot.classList.toggle(
-        "active",
-        idx === Math.floor(currentIndex / slidesToShow)
-      );
+    dots = createDots({
+      container: dotsContainer,
+      pageCount,
+      currentIndex: Math.floor(currentIndex / slidesToShow),
+      onClick: (pageIdx) => {
+        currentIndex = pageIdx * slidesToShow;
+        updateAll();
+      },
     });
   }
 
@@ -94,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (currentIndex < 0) {
       currentIndex = Math.max(0, slideCount - slidesToShow);
     }
-    updateSlider();
+    updateAll();
   });
 
   nextBtn.addEventListener("click", () => {
@@ -102,8 +80,14 @@ document.addEventListener("DOMContentLoaded", () => {
     if (currentIndex > slideCount - slidesToShow) {
       currentIndex = 0;
     }
-    updateSlider();
+    updateAll();
   });
+
+  setupSwipe(
+    sliderWrapper,
+    () => nextBtn.click(),
+    () => prevBtn.click()
+  );
 
   updateSliderWidth();
   window.addEventListener("resize", updateSliderWidth);

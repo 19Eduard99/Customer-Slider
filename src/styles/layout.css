@@ -28,6 +28,7 @@
   display: flex;
   align-items: center;
   margin-top: 24px;
+  height: 100px;
 }
 
 .logo img {
@@ -45,16 +46,15 @@ blockquote {
   color: #9b9a99;
 }
 
-.text::after,
 blockquote::after {
-  content: "”";
-  font-weight: 500;
-  font-size: 100px;
-  color: #9b9a99;
-  position: absolute;
-  bottom: 90px;
-  right: 30px;
-  pointer-events: none;
+  content: "";
+  background-image: url("/images/quote.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  display: block;
+  width: 38px;
+  height: 36px;
+  margin-left: auto;
 }
 
 /* author */
@@ -82,7 +82,6 @@ blockquote::after {
 }
 
 .author-info span {
-  color: #666;
   font-size: 18px;
   font-weight: 400;
 }

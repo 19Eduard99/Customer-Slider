@@ -16,13 +16,12 @@
 
 .slide {
   background-color: #ffffff;
-  border: 1px solid #e0e0e0;
+  border: 1px solid #b6b1b1;
   border-radius: 15px;
   padding: 20px 30px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 20px;
   height: 500px;
   flex-shrink: 0;
   position: relative;
@@ -32,9 +31,8 @@
 }
 
 .slide:hover {
-  transform: translateY(-6px);
+  transform: scale(0.98);
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
-  border-color: transparent;
 }
 
 /* slider buttons */
@@ -42,8 +40,8 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background-color: #d1cfcf;
-  border: none;
+  background-color: #fff;
+  border: 1px solid #d1cfcf;
   padding: 20px;
   border-radius: 50%;
   cursor: pointer;
@@ -51,25 +49,25 @@
     transform 0.2s ease;
   z-index: 10;
   user-select: none;
-  width: 32px;
-  height: 32px;
+  width: 60px;
+  height: 60px;
   background-position: center;
   background-repeat: no-repeat;
   background-size: 20px 20px;
 }
 
 .slider-btn:hover {
-  background-color: #a0c4ff;
+  background-color: #d1cfcf;
 }
 
 .slider-btn.prev {
   background-image: url("/images/arrow-left.svg");
-  left: 10px;
+  left: -20px;
 }
 
 .slider-btn.next {
   background-image: url("/images/arrow-right.svg");
-  right: 10px;
+  right: -20px;
 }
 
 /* slider dots */
@@ -91,5 +89,5 @@
 }
 
 .slider-dot.active {
-  background-color: #333;
+  background-color: #4b4b4b;
 }
