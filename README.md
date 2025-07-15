@@ -1,5 +1,7 @@
 # Customer Reviews Slider
 
+[DEMO LIVE](View Live: Product Catalog)
+
 ## Опис проєкту
 
 Цей проєкт — це адаптивна сторінка з відгуками клієнтів для уявного сервісу **Sales Fortuna**.
@@ -26,3 +28,5 @@
 4. **Функціонал**  
    - При натисканні на стрілки вліво/вправо відбувається зміна видимих карток відгуків  
    - Використані ті ж самі картки, просто змінюється їхній порядок (переміщення в слайдері)
+
+[Figma макет](https://www.figma.com/design/i8U9prmitB9HfZ2YuzgYhl/Sales-Fortuna-Technical-task?node-id=0-1&t=mqXB1xl8Bfnivwo3-1)
